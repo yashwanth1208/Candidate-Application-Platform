@@ -17,7 +17,7 @@ The Candidate Application Platform is a web application designed to help job see
 
 ## How to Run the App Locally
 1. Clone the repository to your local machine using the following command:
-git clone https://github.com/your-username/candidate-application-platform.git
+git clone https://github.com/yashwanth1208/candidate-application-platform.git
 2. Navigate to the project directory:
 cd candidate-application-platform
 3. Install dependencies using:
