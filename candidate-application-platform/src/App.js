@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchJobs } from './actions/jobActions';
 import FilterBar from './components/FilterBar';
@@ -7,13 +7,17 @@ import './styles.css';
 
 function App() {
   const dispatch = useDispatch();
-  const { loading, jobs, error } = useSelector(state => state.jobs);
+  const { loading, jobs, error, page } = useSelector(state => state.jobs);
 
   useEffect(() => {
     dispatch(fetchJobs());
   }, [dispatch]);
 
-  console.log('Jobs:', jobs); // Added this line to inspect the value of jobs in the console
+  console.log('Jobs:', jobs); 
+
+  const loadMoreJobs = useCallback(() => {
+    dispatch(fetchJobs(page + 1)); 
+  }, [dispatch, page]);
 
   return (
     <div>
@@ -27,7 +31,7 @@ function App() {
         ) : error ? (
           <p>Error: {error}</p>
         ) : (
-          <JobList jobs={jobs} /> // Render the JobList component and pass the jobs array as a prop
+          <JobList jobs={jobs} loadMore={loadMoreJobs} /> 
         )}
       </div>
     </div>

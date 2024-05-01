@@ -2,7 +2,7 @@ export const FETCH_JOBS_REQUEST = 'FETCH_JOBS_REQUEST';
 export const FETCH_JOBS_SUCCESS = 'FETCH_JOBS_SUCCESS';
 export const FETCH_JOBS_FAILURE = 'FETCH_JOBS_FAILURE';
 
-export const fetchJobs = () => async (dispatch) => {
+export const fetchJobs = (page) => async (dispatch) => {
   dispatch({ type: FETCH_JOBS_REQUEST });
 
   try {
@@ -10,8 +10,8 @@ export const fetchJobs = () => async (dispatch) => {
     myHeaders.append('Content-Type', 'application/json');
 
     const raw = JSON.stringify({
-      limit: 10, // Adjust limit as needed
-      offset: 0
+      limit: 50, 
+      offset: (page - 1) * 50, 
     });
 
     const requestOptions = {
@@ -25,7 +25,7 @@ export const fetchJobs = () => async (dispatch) => {
 
     dispatch({
       type: FETCH_JOBS_SUCCESS,
-      payload: data // Assuming data contains job listings
+      payload: data 
     });
   } catch (error) {
     dispatch({
@@ -34,3 +34,4 @@ export const fetchJobs = () => async (dispatch) => {
     });
   }
 };
+
