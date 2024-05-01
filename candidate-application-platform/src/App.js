@@ -1,9 +1,9 @@
-// App.js
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchJobs } from './actions/jobActions';
-import JobCard from './components/JobCard';
 import FilterBar from './components/FilterBar';
+import JobList from './components/JobList';
+import './styles.css'; 
 
 function App() {
   const dispatch = useDispatch();
@@ -17,19 +17,19 @@ function App() {
 
   return (
     <div>
-      <h1>Job Listings</h1>
+      <div className="app-header">
+        <h1>Candidate Application Platform</h1>
+      </div>
       <FilterBar />
-      {loading ? (
-        <p>Loading...</p>
-      ) : error ? (
-        <p>Error: {error}</p>
-      ) : (
-        <div className="job-list">
-          {jobs && jobs.map(job => (
-            <JobCard key={job.jdUid} job={job} /> // Use a unique identifier from job object as key prop
-          ))}
-        </div>
-      )}
+      <div className="job-list-container">
+        {loading ? (
+          <p>Loading...</p>
+        ) : error ? (
+          <p>Error: {error}</p>
+        ) : (
+          <JobList jobs={jobs} /> // Render the JobList component and pass the jobs array as a prop
+        )}
+      </div>
     </div>
   );
 }
